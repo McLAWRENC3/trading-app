@@ -1,0 +1,52 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Premium Trading Course",
+            "description": "Complete beginner to advanced trading course with video lessons and eBooks",
+            "price": 199.99,
+            "category": "Education",
+            "icon": "📚"
+        },
+        {
+            "id": 2,
+            "name": "Trading Signals Pro",
+            "description": "Real-time trading signals and market analysis delivered daily",
+            "price": 49.99,
+            "category": "Tools",
+            "icon": "📊"
+        },
+        {
+            "id": 3,
+            "name": "Risk Management Calculator",
+            "description": "Advanced risk calculation tool for optimal position sizing",
+            "price": 29.99,
+            "category": "Tools",
+            "icon": "🧮"
+        },
+        {
+            "id": 4,
+            "name": "Market Analysis Reports",
+            "description": "Weekly in-depth market analysis and trend predictions",
+            "price": 19.99,
+            "category": "Research",
+            "icon": "📈"
+        },
+        {
+            "id": 5,
+            "name": "Trading Journal Pro",
+            "description": "Digital trading journal with performance analytics",
+            "price": 39.99,
+            "category": "Tools",
+            "icon": "📝"
+        },
+        {
+            "id": 6,
+            "name": "One-on-One Mentorship",
+            "description": "Personalized coaching sessions with expert traders",
+            "price": 299.99,
+            "category": "Education",
+            "icon": "👨‍🏫"
+        }
+    ]
+}
