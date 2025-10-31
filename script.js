@@ -3,7 +3,7 @@ let cart = [];
 let currentProduct = null;
 let currentQuantity = 1;
 
-// Enhanced Product data with features
+// Enhanced Product data with features and specifications
 const products = [
     {
         id: 1,
@@ -19,7 +19,15 @@ const products = [
             "Multiple channel support",
             "Easy setup and configuration",
             "24/7 reliable operation"
-        ]
+        ],
+        specifications: {
+            "Platform": "MT4/MT5",
+            "Delivery": "Instant Digital Download",
+            "Updates": "Free Lifetime Updates",
+            "Support": "Premium 24/7 Support",
+            "Format": ".ex5 File",
+            "Requirements": "Windows OS, MT4/MT5"
+        }
     },
     {
         id: 2,
@@ -35,7 +43,15 @@ const products = [
             "Trade confirmation alerts",
             "Error handling and logging",
             "Custom execution rules"
-        ]
+        ],
+        specifications: {
+            "Platform": "MT4/MT5",
+            "Delivery": "Instant Digital Download",
+            "Updates": "Free Lifetime Updates",
+            "Support": "Premium 24/7 Support",
+            "Format": ".ex5 File",
+            "Requirements": "Windows OS, MT4/MT5, Internet"
+        }
     },
     {
         id: 3,
@@ -51,7 +67,15 @@ const products = [
             "Auto lot size calculation",
             "Drawdown protection",
             "24/5 automated trading"
-        ]
+        ],
+        specifications: {
+            "Platform": "MT5 Only",
+            "Pair": "XAUUSD (Gold)",
+            "Timeframe": "M5, M15, H1",
+            "Delivery": "Instant Digital Download",
+            "Updates": "Free Lifetime Updates",
+            "Support": "Premium 24/7 Support"
+        }
     },
     {
         id: 4,
@@ -67,7 +91,15 @@ const products = [
             "Key support/resistance levels",
             "Trading opportunities highlighted",
             "Market sentiment analysis"
-        ]
+        ],
+        specifications: {
+            "Format": "PDF Report",
+            "Delivery": "Weekly Email",
+            "Pages": "15-20 pages weekly",
+            "Charts": "30+ technical charts",
+            "Coverage": "Forex, Stocks, Crypto",
+            "Updates": "Weekly"
+        }
     },
     {
         id: 5,
@@ -83,7 +115,15 @@ const products = [
             "Custom reporting",
             "Data export capabilities",
             "Mobile app access"
-        ]
+        ],
+        specifications: {
+            "Platform": "Web + Mobile App",
+            "Data Import": "MT4, MT5, CSV",
+            "Reports": "Customizable",
+            "Storage": "Cloud Sync",
+            "Support": "Email & Chat",
+            "Backup": "Automatic Cloud"
+        }
     },
     {
         id: 6,
@@ -99,7 +139,15 @@ const products = [
             "Order block analysis",
             "Advanced entry/exit logic",
             "Professional risk management"
-        ]
+        ],
+        specifications: {
+            "Platform": "MT5 Only",
+            "Strategy": "Smart Money Concepts",
+            "Pair": "XAUUSD (Gold)",
+            "Timeframe": "M15, H1, H4",
+            "Delivery": "Instant Digital Download",
+            "Support": "Premium 24/7 Support"
+        }
     }
 ];
 
@@ -107,6 +155,9 @@ const products = [
 document.addEventListener('DOMContentLoaded', function() {
     displayProducts();
     updateCartCount();
+    
+    // Add keyboard event listeners for modals
+    document.addEventListener('keydown', handleKeyboardEvents);
 });
 
 // Display products in the grid
@@ -163,6 +214,24 @@ function showProductDetail(productId) {
         featuresList.appendChild(li);
     });
     
+    // Update specifications
+    const specsGrid = document.getElementById('detail-product-specs');
+    specsGrid.innerHTML = '';
+    if (product.specifications) {
+        for (const [key, value] of Object.entries(product.specifications)) {
+            const specItem = document.createElement('div');
+            specItem.className = 'spec-item';
+            specItem.innerHTML = `
+                <div class="spec-label">${key}:</div>
+                <div class="spec-value">${value}</div>
+            `;
+            specsGrid.appendChild(specItem);
+        }
+    }
+    
+    // Update total price in button
+    updateDetailTotalPrice();
+    
     // Show modal
     document.getElementById('product-detail-modal').style.display = 'block';
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
@@ -182,6 +251,15 @@ function changeQuantity(change) {
     if (currentQuantity < 1) currentQuantity = 1;
     if (currentQuantity > 99) currentQuantity = 99;
     document.getElementById('detail-quantity').textContent = currentQuantity;
+    updateDetailTotalPrice();
+}
+
+// Update total price in product detail modal
+function updateDetailTotalPrice() {
+    if (!currentProduct) return;
+    
+    const totalPrice = currentProduct.price * currentQuantity;
+    document.getElementById('detail-total-price').textContent = totalPrice.toFixed(2);
 }
 
 // Add to cart from product detail
@@ -275,6 +353,7 @@ function displayCartItems() {
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
     updateCartCount();
+    showNotification('Item removed from cart');
 }
 
 // Checkout function
@@ -300,8 +379,20 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+    const payment = document.getElementById('payment').value;
     
-    alert(`Thank you for your purchase, ${name}! A confirmation email has been sent to ${email}.`);
+    if (!payment) {
+        alert('Please select a payment method');
+        return;
+    }
+    
+    // Calculate total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    // In a real application, you would process payment here
+    // For this demo, we'll just show a success message
+    alert(`Thank you for your purchase, ${name}!\n\nOrder Total: $${total.toFixed(2)}\nPayment Method: ${getPaymentMethodName(payment)}\nA confirmation email has been sent to ${email}.\n\nYour order will be delivered to:\n${address}`);
     
     // Clear cart and close modal
     cart = [];
@@ -311,6 +402,16 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     
     showNotification('Purchase completed successfully!');
 });
+
+// Get payment method name for display
+function getPaymentMethodName(paymentCode) {
+    const paymentMethods = {
+        'credit': 'Credit Card',
+        'paypal': 'PayPal',
+        'crypto': 'Cryptocurrency'
+    };
+    return paymentMethods[paymentCode] || paymentCode;
+}
 
 // Show notification
 function showNotification(message) {
@@ -331,6 +432,7 @@ function showNotification(message) {
         z-index: 3000;
         animation: slideIn 0.3s ease;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-weight: bold;
     `;
     notification.setAttribute('data-notification', 'true');
     notification.textContent = message;
@@ -344,6 +446,31 @@ function showNotification(message) {
             setTimeout(() => notification.remove(), 300);
         }
     }, 3000);
+}
+
+// Handle keyboard events
+function handleKeyboardEvents(event) {
+    // Escape key to close modals
+    if (event.key === 'Escape') {
+        if (document.getElementById('product-detail-modal').style.display === 'block') {
+            closeProductDetail();
+        }
+        if (document.getElementById('checkout-modal').style.display === 'block') {
+            closeModal();
+        }
+    }
+    
+    // Plus/Minus keys for quantity in product detail modal
+    if (document.getElementById('product-detail-modal').style.display === 'block') {
+        if (event.key === '+' || event.key === '=') {
+            event.preventDefault();
+            changeQuantity(1);
+        }
+        if (event.key === '-' || event.key === '_') {
+            event.preventDefault();
+            changeQuantity(-1);
+        }
+    }
 }
 
 // Close modals when clicking outside
