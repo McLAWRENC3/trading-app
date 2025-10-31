@@ -27,7 +27,7 @@ const products = [
         description: "Highly efficient tool that allows traders to receive and execute trading signals instantly from Telegram directly in MT5. Never miss a trading opportunity with automatic execution.",
         price: 69.99,
         category: "Trading Tools",
-        image: "images/telegram-to-mt5.png",
+        image: "images/telegram-to-mt5-executer.png",
         features: [
             "Instant signal execution",
             "Multiple signal format support",
@@ -120,7 +120,7 @@ function displayProducts() {
         
         productCard.innerHTML = `
             <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" class="product-img">
+                <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://via.placeholder.com/300x200/3498db/ffffff?text=Product+Image'">
             </div>
             <h3 class="product-title">${product.name}</h3>
             <p class="product-description">${product.description.substring(0, 100)}...</p>
