@@ -309,6 +309,7 @@ footer p:last-child {
     height: 100%;
     background-color: rgba(0,0,0,0.8);
     backdrop-filter: blur(5px);
+    overflow-y: auto; /* Enable scrolling for the entire modal background */
 }
 
 .product-detail-content {
@@ -320,6 +321,8 @@ footer p:last-child {
     max-width: 900px;
     position: relative;
     animation: modalSlideIn 0.3s ease;
+    max-height: 90vh; /* Limit height to 90% of viewport */
+    overflow: hidden; /* Prevent double scrollbars */
 }
 
 @keyframes modalSlideIn {
@@ -328,9 +331,9 @@ footer p:last-child {
 }
 
 .product-detail-close {
-    position: absolute;
-    right: 20px;
-    top: 15px;
+    position: fixed; /* Change to fixed so it stays visible when scrolling */
+    right: calc(5% + 20px);
+    top: 2%;
     font-size: 2rem;
     cursor: pointer;
     z-index: 10;
@@ -342,12 +345,14 @@ footer p:last-child {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
 .product-detail-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
+    max-height: 100%; /* Ensure it doesn't exceed parent */
 }
 
 .product-detail-image {
@@ -358,6 +363,8 @@ footer p:last-child {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: sticky; /* Keep image visible while scrolling */
+    top: 0;
 }
 
 .product-detail-image img {
@@ -370,7 +377,26 @@ footer p:last-child {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    max-height: 500px; /* Match image height */
+    overflow-y: auto; /* Enable scrolling for content */
+}
+
+.product-detail-info::-webkit-scrollbar {
+    width: 6px;
+}
+
+.product-detail-info::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.product-detail-info::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.product-detail-info::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }
 
 .product-detail-category {
@@ -392,7 +418,6 @@ footer p:last-child {
     color: #666;
     line-height: 1.6;
     margin-bottom: 1.5rem;
-    flex-grow: 1;
 }
 
 .product-detail-features {
@@ -558,43 +583,51 @@ footer p:last-child {
     font-weight: bold;
 }
 
-/* Dynamic Price in Button */
-.btn-primary span {
-    font-weight: bold;
+/* Make product cards clickable */
+.product-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* Responsive design */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Responsive design for product detail */
 @media (max-width: 768px) {
-    .hero h2 {
-        font-size: 2rem;
-    }
-    
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
     .product-detail-body {
         grid-template-columns: 1fr;
+        max-height: none; /* Remove height restriction on mobile */
     }
     
     .product-detail-image {
         height: 300px;
         border-radius: 15px 15px 0 0;
+        position: relative; /* Remove sticky on mobile */
     }
     
     .product-detail-content {
         margin: 5% auto;
         width: 95%;
+        max-height: 85vh; /* Slightly less on mobile */
+    }
+    
+    .product-detail-info {
+        max-height: none; /* Remove fixed height on mobile */
+        overflow-y: visible; /* No scrolling needed on mobile */
+        padding: 1.5rem;
     }
     
     .product-detail-actions {
         flex-direction: column;
+    }
+    
+    .product-detail-close {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        background: rgba(255,255,255,0.9);
     }
     
     .specs-grid {
@@ -613,21 +646,8 @@ footer p:last-child {
 
 /* Additional responsive adjustments for very small screens */
 @media (max-width: 480px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .hero {
-        padding: 2rem 0;
-    }
-    
-    .hero h2 {
-        font-size: 1.8rem;
-    }
-    
     .product-detail-info {
-        padding: 1.5rem;
+        padding: 1rem;
     }
     
     .product-detail-title {
@@ -636,5 +656,11 @@ footer p:last-child {
     
     .product-detail-price {
         font-size: 1.5rem;
+    }
+    
+    .product-detail-features,
+    .product-detail-specs {
+        margin: 1rem 0;
+        padding: 0.8rem;
     }
 }
