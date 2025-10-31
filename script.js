@@ -1,55 +1,105 @@
 // Global cart array
 let cart = [];
+let currentProduct = null;
+let currentQuantity = 1;
 
-// Product data
+// Enhanced Product data with features
 const products = [
     {
         id: 1,
         name: "Mt5 to Telegram signal sender",
-        description: "An excellent and intuitive tool for traders to broadcast signals directly from MT5 to Telegram",
+        description: "An excellent and intuitive tool for traders to broadcast signals directly from MT5 to Telegram channels or groups. Streamline your signal distribution process with this powerful automation tool.",
         price: 49.99,
-        category: "Tools",
-        image: "images/MT5-TO-TELEGRAM-V2.png"
+        category: "Trading Tools",
+        image: "images/mt5-to-telegram.png",
+        features: [
+            "Direct MT5 to Telegram integration",
+            "Real-time signal broadcasting",
+            "Customizable message templates",
+            "Multiple channel support",
+            "Easy setup and configuration",
+            "24/7 reliable operation"
+        ]
     },
     {
         id: 2,
-        name: "Telegram to Mt5 signal receiver(Executor)",
-        description: "Highly efficient tool that allows traders to receive and execute trading signals instantly from Telegram directly in MT5",
+        name: "Telegram to Mt5 signal receiver",
+        description: "Highly efficient tool that allows traders to receive and execute trading signals instantly from Telegram directly in MT5. Never miss a trading opportunity with automatic execution.",
         price: 69.99,
-        category: "Tools",
-        image: "images/telegram-to-mt5-executer.png"
+        category: "Trading Tools",
+        image: "images/telegram-to-mt5.png",
+        features: [
+            "Instant signal execution",
+            "Multiple signal format support",
+            "Risk management controls",
+            "Trade confirmation alerts",
+            "Error handling and logging",
+            "Custom execution rules"
+        ]
     },
     {
         id: 3,
-        name: "Golden Stream",
-        description: "Advanced gold trading Bot with exceptional performance",
+        name: "Golden Stream EA",
+        description: "Advanced gold trading Expert Advisor with exceptional performance and sophisticated algorithms designed specifically for XAUUSD trading.",
         price: 1499.99,
-        category: "Bots",
-        image: "images/golden-stream-official-logo-2.png"
+        category: "Expert Advisors",
+        image: "images/golden-stream.png",
+        features: [
+            "Specialized for Gold trading",
+            "Advanced risk management",
+            "Multiple timeframe analysis",
+            "Auto lot size calculation",
+            "Drawdown protection",
+            "24/5 automated trading"
+        ]
     },
     {
         id: 4,
         name: "Market Analysis Reports",
-        description: "Weekly in-depth market analysis and trend predictions",
+        description: "Weekly in-depth market analysis and trend predictions prepared by professional analysts. Stay ahead of the market with comprehensive technical and fundamental analysis.",
         price: 19.99,
-        category: "Research",
-        image: "images/reports.jpg"
+        category: "Research & Education",
+        image: "images/reports.jpg",
+        features: [
+            "Weekly comprehensive reports",
+            "Technical analysis charts",
+            "Fundamental analysis insights",
+            "Key support/resistance levels",
+            "Trading opportunities highlighted",
+            "Market sentiment analysis"
+        ]
     },
     {
         id: 5,
         name: "Trading Journal Pro",
-        description: "Digital trading journal with performance analytics",
+        description: "Digital trading journal with advanced performance analytics and trade analysis tools. Improve your trading strategy by understanding your performance patterns.",
         price: 39.99,
-        category: "Tools",
-        image: "images/journal.jpg"
+        category: "Trading Tools",
+        image: "images/journal.jpg",
+        features: [
+            "Trade performance analytics",
+            "Win/loss ratio tracking",
+            "Risk-reward analysis",
+            "Custom reporting",
+            "Data export capabilities",
+            "Mobile app access"
+        ]
     },
     {
         id: 6,
-        name: "SMC manoeuvre",
-        description: "High performance Gold trading Bot",
+        name: "SMC Manoeuvre EA",
+        description: "High performance Gold trading Expert Advisor using Smart Money Concepts (SMC) strategy. Advanced algorithmic trading for sophisticated market participants.",
         price: 299.99,
-        category: "Bots",
-        image: "images/Smc-manoeuvre-logo.png",
+        category: "Expert Advisors",
+        image: "images/smc-manoeuvre.png",
+        features: [
+            "Smart Money Concepts strategy",
+            "Gold market specialized",
+            "Liquidity zone detection",
+            "Order block analysis",
+            "Advanced entry/exit logic",
+            "Professional risk management"
+        ]
     }
 ];
 
@@ -62,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Display products in the grid
 function displayProducts() {
     const productsGrid = document.getElementById('products-grid');
+    productsGrid.innerHTML = ''; // Clear existing
     
     products.forEach(product => {
         const productCard = document.createElement('div');
@@ -72,18 +123,88 @@ function displayProducts() {
                 <img src="${product.image}" alt="${product.name}" class="product-img">
             </div>
             <h3 class="product-title">${product.name}</h3>
-            <p class="product-description">${product.description}</p>
+            <p class="product-description">${product.description.substring(0, 100)}...</p>
             <div class="product-price">$${product.price.toFixed(2)}</div>
-            <button class="add-to-cart" onclick="addToCart(${product.id})">
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
                 Add to Cart
             </button>
         `;
+        
+        // Add click event to show product details
+        productCard.addEventListener('click', () => showProductDetail(product.id));
         
         productsGrid.appendChild(productCard);
     });
 }
 
-// Add product to cart
+// Show product detail modal
+function showProductDetail(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    currentProduct = product;
+    currentQuantity = 1;
+    
+    // Update modal content
+    document.getElementById('detail-product-image').src = product.image;
+    document.getElementById('detail-product-image').alt = product.name;
+    document.getElementById('detail-product-category').textContent = product.category;
+    document.getElementById('detail-product-title').textContent = product.name;
+    document.getElementById('detail-product-description').textContent = product.description;
+    document.getElementById('detail-product-price').textContent = `$${product.price.toFixed(2)}`;
+    document.getElementById('detail-quantity').textContent = currentQuantity;
+    
+    // Update features list
+    const featuresList = document.getElementById('detail-product-features');
+    featuresList.innerHTML = '';
+    product.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.textContent = feature;
+        featuresList.appendChild(li);
+    });
+    
+    // Show modal
+    document.getElementById('product-detail-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+// Close product detail modal
+function closeProductDetail() {
+    document.getElementById('product-detail-modal').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+    currentProduct = null;
+    currentQuantity = 1;
+}
+
+// Change quantity in product detail
+function changeQuantity(change) {
+    currentQuantity += change;
+    if (currentQuantity < 1) currentQuantity = 1;
+    if (currentQuantity > 99) currentQuantity = 99;
+    document.getElementById('detail-quantity').textContent = currentQuantity;
+}
+
+// Add to cart from product detail
+function addToCartFromDetail() {
+    if (!currentProduct) return;
+    
+    const existingItem = cart.find(item => item.id === currentProduct.id);
+    
+    if (existingItem) {
+        existingItem.quantity += currentQuantity;
+    } else {
+        cart.push({
+            ...currentProduct,
+            quantity: currentQuantity
+        });
+    }
+    
+    updateCartCount();
+    showNotification(`${currentProduct.name} (${currentQuantity}) added to cart!`);
+    closeProductDetail();
+}
+
+// Add product to cart from main grid
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     const existingItem = cart.find(item => item.id === productId);
@@ -167,7 +288,7 @@ function checkout() {
     modal.style.display = 'block';
 }
 
-// Close modal
+// Close checkout modal
 function closeModal() {
     const modal = document.getElementById('checkout-modal');
     modal.style.display = 'none';
@@ -179,9 +300,6 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    
-    // In a real application, you would process payment here
-    // For this demo, we'll just show a success message
     
     alert(`Thank you for your purchase, ${name}! A confirmation email has been sent to ${email}.`);
     
@@ -196,6 +314,10 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
 
 // Show notification
 function showNotification(message) {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('[data-notification]');
+    existingNotifications.forEach(notification => notification.remove());
+    
     // Create notification element
     const notification = document.createElement('div');
     notification.style.cssText = `
@@ -206,25 +328,47 @@ function showNotification(message) {
         color: white;
         padding: 1rem 2rem;
         border-radius: 5px;
-        z-index: 1000;
+        z-index: 3000;
         animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     `;
+    notification.setAttribute('data-notification', 'true');
     notification.textContent = message;
     
     document.body.appendChild(notification);
     
     // Remove notification after 3 seconds
     setTimeout(() => {
-        notification.remove();
+        if (notification.parentNode) {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }
     }, 3000);
 }
 
-// Add some CSS for the notification animation
+// Close modals when clicking outside
+window.addEventListener('click', function(event) {
+    const productDetailModal = document.getElementById('product-detail-modal');
+    const checkoutModal = document.getElementById('checkout-modal');
+    
+    if (event.target === productDetailModal) {
+        closeProductDetail();
+    }
+    if (event.target === checkoutModal) {
+        closeModal();
+    }
+});
+
+// Add CSS for notifications
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
         from { transform: translateX(100%); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
     }
 `;
 document.head.appendChild(style);
