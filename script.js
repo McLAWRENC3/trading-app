@@ -9,7 +9,7 @@ const products = [
         description: "An excellent and intuitive tool for traders to broadcast signals directly from MT5 to Telegram",
         price: 49.99,
         category: "Tools",
-        image: "images/MT5 TO TELEGRAM V2.png"
+        image: "images/MT5-TO-TELEGRAM-V2.png"
     },
     {
         id: 2,
@@ -25,7 +25,7 @@ const products = [
         description: "Advanced gold trading Bot with exceptional performance",
         price: 1499.99,
         category: "Bots",
-        image: "images/golden stream official logo 2.png"
+        image: "images/golden-stream-official-logo-2.png"
     },
     {
         id: 4,
