@@ -5,27 +5,27 @@ let cart = [];
 const products = [
     {
         id: 1,
-        name: "Premium Trading Course",
-        description: "Complete beginner to advanced trading course with video lessons and eBooks",
-        price: 199.99,
-        category: "Education",
-        icon: "📚"
+        name: "Mt5 to Telegram signal sender",
+        description: "An excellent and intuitive tool for traders to broadcast signals directly from MT5 to Telegram",
+        price: 49.99,
+        category: "Tools",
+        image: "images/MT5 TO TELEGRAM V2.png"
     },
     {
         id: 2,
-        name: "Trading Signals Pro",
-        description: "Real-time trading signals and market analysis delivered daily",
-        price: 49.99,
+        name: "Telegram to Mt5 signal receiver(Executor)",
+        description: "Highly efficient tool that allows traders to receive and execute trading signals instantly from Telegram directly in MT5",
+        price: 69.99,
         category: "Tools",
-        icon: "📊"
+        image: "images/telegram-to-mt5-executer.png"
     },
     {
         id: 3,
-        name: "Risk Management Calculator",
-        description: "Advanced risk calculation tool for optimal position sizing",
-        price: 29.99,
-        category: "Tools",
-        icon: "🧮"
+        name: "Golden Stream",
+        description: "Advanced gold trading Bot with exceptional performance",
+        price: 1499.99,
+        category: "Bots",
+        image: "images/golden stream official logo 2.png"
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ const products = [
         description: "Weekly in-depth market analysis and trend predictions",
         price: 19.99,
         category: "Research",
-        icon: "📈"
+        image: "images/reports.jpg"
     },
     {
         id: 5,
@@ -41,33 +41,16 @@ const products = [
         description: "Digital trading journal with performance analytics",
         price: 39.99,
         category: "Tools",
-        icon: "📝"
+        image: "images/journal.jpg"
     },
     {
         id: 6,
-        name: "One-on-One Mentorship",
-        description: "Personalized coaching sessions with expert traders",
+        name: "SMC manoeuvre",
+        description: "High performance Gold trading Bot",
         price: 299.99,
-        category: "Education",
-        icon: "👨‍🏫"
-    },
-    {
-            "id": 7,
-            "name": "The Golden stream pro",
-            "description": "High performance Gold trading bot",
-            "price": 499.99,
-            "category": "Trading Bot",
-            "icon": "👨‍🏫"
-        },
-        {
-            "id": 8,
-            "name": "SMC manoeuvre",
-            "description": "Smart Money concept manoevre ",
-            "price": 1499.99,
-            "category": "Trading Bot",
-            "icon": "👨‍🏫"
-        
-        }
+        category: "Bots",
+        image: "images/Smc-manoeuvre-logo.png",
+    }
 ];
 
 // Initialize the app
@@ -86,7 +69,7 @@ function displayProducts() {
         
         productCard.innerHTML = `
             <div class="product-image">
-                ${product.icon}
+                <img src="${product.image}" alt="${product.name}" class="product-img">
             </div>
             <h3 class="product-title">${product.name}</h3>
             <p class="product-description">${product.description}</p>
