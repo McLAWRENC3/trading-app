@@ -11,7 +11,7 @@ const products = [
         description: "An excellent and intuitive tool for traders to broadcast signals directly from MT5 to Telegram channels or groups. Streamline your signal distribution process with this powerful automation tool.",
         price: 49.99,
         category: "Trading Tools",
-        image: "images/mt5-to-telegram.png",
+        image: "images/mt5-to-telegram-promo.png",
         features: [
             "Direct MT5 to Telegram integration",
             "Real-time signal broadcasting",
@@ -59,7 +59,7 @@ const products = [
         description: "Advanced gold trading Expert Advisor with exceptional performance and sophisticated algorithms designed specifically for XAUUSD trading.",
         price: 1499.99,
         category: "Expert Advisors",
-        image: "images/golden-stream.png",
+        image: "images/golden-stream-official-logo 2.png",
         features: [
             "Specialized for Gold trading",
             "Advanced risk management",
@@ -131,7 +131,7 @@ const products = [
         description: "High performance Gold trading Expert Advisor using Smart Money Concepts (SMC) strategy. Advanced algorithmic trading for sophisticated market participants.",
         price: 299.99,
         category: "Expert Advisors",
-        image: "images/smc-manoeuvre.png",
+        image: "images/Smc-manoeuvre-logo.png",
         features: [
             "Smart Money Concepts strategy",
             "Gold market specialized",
