@@ -61,62 +61,86 @@
                     <label for="address">Shipping Address:</label>
                     <textarea id="address" required></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="payment">Payment Method:</label>
+                    <select id="payment" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="credit">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="crypto">Cryptocurrency</option>
+                    </select>
+                </div>
                 <button type="submit" class="submit-btn">Complete Purchase</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-detail-modal" class="product-detail-modal">
+        <div class="product-detail-content">
+            <span class="product-detail-close" onclick="closeProductDetail()">&times;</span>
+            <div class="product-detail-body">
+                <div class="product-detail-image">
+                    <img id="detail-product-image" src="" alt="" onerror="this.src='https://via.placeholder.com/500x400/3498db/ffffff?text=Product+Image'">
+                </div>
+                <div class="product-detail-info">
+                    <div>
+                        <div class="product-detail-category" id="detail-product-category"></div>
+                        <h2 class="product-detail-title" id="detail-product-title"></h2>
+                        <p class="product-detail-description" id="detail-product-description"></p>
+                        
+                        <div class="product-detail-features">
+                            <h4>Key Features</h4>
+                            <ul id="detail-product-features">
+                                <!-- Features will be added dynamically -->
+                            </ul>
+                        </div>
+
+                        <div class="product-detail-specs">
+                            <h4>Product Specifications</h4>
+                            <div class="specs-grid" id="detail-product-specs">
+                                <!-- Specifications will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="product-detail-price" id="detail-product-price"></div>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                            <span class="quantity-display" id="detail-quantity">1</span>
+                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                            <span style="margin-left: auto; color: #666;">Quantity</span>
+                        </div>
+                        
+                        <div class="product-detail-actions">
+                            <button class="btn-primary" onclick="addToCartFromDetail()">
+                                🛒 Add to Cart - $<span id="detail-total-price">0.00</span>
+                            </button>
+                            <button class="btn-secondary" onclick="closeProductDetail()">
+                                Continue Shopping
+                            </button>
+                        </div>
+
+                        <div class="product-guarantee">
+                            <div class="guarantee-item">✓ 30-Day Money Back</div>
+                            <div class="guarantee-item">✓ Free Updates</div>
+                            <div class="guarantee-item">✓ Premium Support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
         <div class="container">
             <p>&copy; 2024 Mathchinery. All rights reserved.</p>
+            <p>Premium trading tools and expert advisors for serious traders</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    <!-- Product Detail Modal -->
-<div id="product-detail-modal" class="product-detail-modal">
-    <div class="product-detail-content">
-        <span class="product-detail-close" onclick="closeProductDetail()">&times;</span>
-        <div class="product-detail-body">
-            <div class="product-detail-image">
-                <img id="detail-product-image" src="" alt="">
-            </div>
-            <div class="product-detail-info">
-                <div>
-                    <div class="product-detail-category" id="detail-product-category"></div>
-                    <h2 class="product-detail-title" id="detail-product-title"></h2>
-                    <p class="product-detail-description" id="detail-product-description"></p>
-                    
-                    <div class="product-detail-features">
-                        <h4>Key Features</h4>
-                        <ul id="detail-product-features">
-                            <!-- Features will be added dynamically -->
-                        </ul>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="product-detail-price" id="detail-product-price"></div>
-                    
-                    <div class="quantity-selector">
-                        <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                        <span class="quantity-display" id="detail-quantity">1</span>
-                        <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                        <span style="margin-left: auto; color: #666;">Quantity</span>
-                    </div>
-                    
-                    <div class="product-detail-actions">
-                        <button class="btn-primary" onclick="addToCartFromDetail()">
-                            🛒 Add to Cart
-                        </button>
-                        <button class="btn-secondary" onclick="closeProductDetail()">
-                            Continue Shopping
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>
