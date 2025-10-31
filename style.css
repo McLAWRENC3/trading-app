@@ -298,7 +298,7 @@ footer p:last-child {
     font-size: 0.9rem;
 }
 
-/* Product Detail Modal */
+/* Product Detail Modal - UPDATED FOR BETTER SCROLLING */
 .product-detail-modal {
     display: none;
     position: fixed;
@@ -309,7 +309,8 @@ footer p:last-child {
     height: 100%;
     background-color: rgba(0,0,0,0.8);
     backdrop-filter: blur(5px);
-    overflow-y: auto; /* Enable scrolling for the entire modal background */
+    overflow-y: auto;
+    padding: 20px 0;
 }
 
 .product-detail-content {
@@ -321,8 +322,6 @@ footer p:last-child {
     max-width: 900px;
     position: relative;
     animation: modalSlideIn 0.3s ease;
-    max-height: 90vh; /* Limit height to 90% of viewport */
-    overflow: hidden; /* Prevent double scrollbars */
 }
 
 @keyframes modalSlideIn {
@@ -331,9 +330,9 @@ footer p:last-child {
 }
 
 .product-detail-close {
-    position: fixed; /* Change to fixed so it stays visible when scrolling */
-    right: calc(5% + 20px);
-    top: 2%;
+    position: absolute;
+    right: 20px;
+    top: 15px;
     font-size: 2rem;
     cursor: pointer;
     z-index: 10;
@@ -352,7 +351,7 @@ footer p:last-child {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    max-height: 100%; /* Ensure it doesn't exceed parent */
+    min-height: 500px;
 }
 
 .product-detail-image {
@@ -363,8 +362,6 @@ footer p:last-child {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    position: sticky; /* Keep image visible while scrolling */
-    top: 0;
 }
 
 .product-detail-image img {
@@ -377,26 +374,6 @@ footer p:last-child {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    max-height: 500px; /* Match image height */
-    overflow-y: auto; /* Enable scrolling for content */
-}
-
-.product-detail-info::-webkit-scrollbar {
-    width: 6px;
-}
-
-.product-detail-info::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-}
-
-.product-detail-info::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.product-detail-info::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
 }
 
 .product-detail-category {
@@ -598,36 +575,20 @@ footer p:last-child {
 @media (max-width: 768px) {
     .product-detail-body {
         grid-template-columns: 1fr;
-        max-height: none; /* Remove height restriction on mobile */
     }
     
     .product-detail-image {
         height: 300px;
         border-radius: 15px 15px 0 0;
-        position: relative; /* Remove sticky on mobile */
     }
     
     .product-detail-content {
         margin: 5% auto;
         width: 95%;
-        max-height: 85vh; /* Slightly less on mobile */
-    }
-    
-    .product-detail-info {
-        max-height: none; /* Remove fixed height on mobile */
-        overflow-y: visible; /* No scrolling needed on mobile */
-        padding: 1.5rem;
     }
     
     .product-detail-actions {
         flex-direction: column;
-    }
-    
-    .product-detail-close {
-        position: absolute;
-        right: 15px;
-        top: 10px;
-        background: rgba(255,255,255,0.9);
     }
     
     .specs-grid {
@@ -662,5 +623,18 @@ footer p:last-child {
     .product-detail-specs {
         margin: 1rem 0;
         padding: 0.8rem;
+    }
+    
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero {
+        padding: 2rem 0;
+    }
+    
+    .hero h2 {
+        font-size: 1.8rem;
     }
 }
