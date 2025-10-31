@@ -50,7 +50,24 @@ const products = [
         price: 299.99,
         category: "Education",
         icon: "👨‍🏫"
-    }
+    },
+    {
+            "id": 7,
+            "name": "The Golden stream pro",
+            "description": "High performance Gold trading bot",
+            "price": 499.99,
+            "category": "Trading Bot",
+            "icon": "👨‍🏫"
+        },
+        {
+            "id": 8,
+            "name": "SMC manoeuvre",
+            "description": "Smart Money concept manoevre ",
+            "price": 1499.99,
+            "category": "Trading Bot",
+            "icon": "👨‍🏫"
+        
+        }
 ];
 
 // Initialize the app
